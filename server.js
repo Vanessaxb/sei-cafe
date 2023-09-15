@@ -4,6 +4,7 @@ const favicon = require("serve-favicon");
 const logger = require("morgan");
 require("dotenv").config();
 require("./config/database");
+// const cors = require('cors')
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -11,6 +12,7 @@ const port = process.env.PORT || 3001;
 //middlewear
 app.use(logger("dev"));
 app.use(express.json());
+// app.use(cors())
 //check for a token and create a req.user propr in the request
 app.use(require('./config/checkToken'))
 
@@ -21,6 +23,11 @@ app.use(express.static(path.join(__dirname, "build")));
 
 // Put API routes here, before the "catch all" route
 app.use('/api/users', require('./routes/api/users'));
+
+// Protect the API routes below from anonymous users
+const ensureLoggedIn = require('./config/ensureLoggedIn');
+app.use('/api/items', ensureLoggedIn, require('./routes/api/items'));
+app.use('/api/orders', ensureLoggedIn, require('./routes/api/orders'));
 
 // The following "catch all" route (note the *) is necessary
 // to return the index.html on all non-AJAX requests
