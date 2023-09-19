@@ -15,6 +15,9 @@ function NavBar({ user, setUser }) {
       <Link to="/orders">Order History</Link>
       &nbsp; | &nbsp;
       <Link to="" onClick={handleLogout}>Log out</Link>
+      &nbsp; | &nbsp;
+      <Link to="/items">Create New Book</Link>
+
     </nav>
   );
 }

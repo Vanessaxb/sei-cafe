@@ -10,4 +10,8 @@ export function getById(id) {
   return sendRequest(`${BASE_URL}/${id}`);
 }
 
-//create
+//create new book
+export function create(bookData) {
+  console.log(bookData);
+  return sendRequest(BASE_URL, 'POST', bookData)
+}
